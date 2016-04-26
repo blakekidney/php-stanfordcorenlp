@@ -440,11 +440,10 @@ class StanfordCoreNLP {
 		
 		//obtain the output
 		/*
-		If the prompt appears and we call fgets, then the system will hang 
+		If the prompt appears and we call fgets on stdout, then the system will hang 
 		while it waits for data since EOF is not returned. So, the only sure way 
-		to determine when the output is finished is by looking for the prompt.
-		When the prompt appears in the message output, then we know the processing 
-		has been finished.
+		to determine when the output is finished is by looking for the prompt and 
+		the end of the JSON string. The prompt may appear sooner than the end of the JSON.
 		*/
 		
 		//variables
@@ -530,11 +529,6 @@ class StanfordCoreNLP {
 					if($endMessage) break;
 				}
 			}
-			
-			/***************************************************************
-			THE STOP ABOVE DOESN'T WORK. THIS IS CAUSING PROBLEMS BECAUSE OF 
-			MULTIPLE SENTENCES. THE PIPE IS NOT ENTIRELY CLEAR.
-			**************************************************************/
 									
 			//we should have all the data once the prompt appears
 			if(strpos($messages, 'NLP> ') !== false) {
